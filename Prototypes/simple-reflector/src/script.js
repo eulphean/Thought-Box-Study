@@ -1,46 +1,47 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
+import Mirrors from './Mirrors'
+import Body from './Body'
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
+scene.background = new THREE.Color("grey");
 
-/**
- * Axes Helper
- */
-const axesHelper = new THREE.AxesHelper(2)
-scene.add(axesHelper)
+// Mirrors and Body
+const mirrors = new Mirrors(scene);
+const body = new Body(scene);
 
-/**
- * Objects
- */
-const group = new THREE.Group()
-group.scale.y = 1
-group.rotation.y = 0.2
-scene.add(group)
+// Add lights.
+const light1 = new THREE.PointLight(0xffffff, 100)
+light1.position.set(2.5, 2.5, 2.5)
+light1.castShadow = true
+scene.add(light1)
 
-const cube1 = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 })
-)
+const light2 = new THREE.PointLight(0xffffff, 100)
+light2.position.set(-2.5, 2.5, 2.5)
+light2.castShadow = true
+scene.add(light2)
 
-group.add(cube1)
+const ambient = new THREE.AmbientLight(0x404040, 5.5);
+scene.add(ambient);
 
 /**
  * Sizes
  */
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
 
 /**
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.set(0, 2, 2);
+camera.position.set(0, 2, 6);
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
@@ -51,6 +52,16 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
+
+
+// Resize the canvas
+window.addEventListener('resize', onWindowResize, false)
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    render()
+}
 
 // Orbit controls
 const orbitControls = new OrbitControls(camera, renderer.domElement)
@@ -69,8 +80,7 @@ function animate() {
     orbitControls.update();
 
     const delta = clock.getDelta();
-    // Update objects here. 
-    group.rotation.y += delta;
+    // body.update(delta);
 
     // Render the scene
     render();
