@@ -1,14 +1,8 @@
 import { MeshReflectorMaterial } from "@react-three/drei"
 import { useLayoutEffect, useRef } from "react";
 import * as THREE from 'three'
+import useGui from "./Gui.jsx";
 
-import { useGui } from "./Gui.jsx";
-const NUM_MIRRORS = 32; 
-const RADIUS = 40;
-const MIRROR_WIDTH = 8;
-const MIRROR_HEIGHT = 24;
-
-console.log(useGui);
 export default function Room() {
     const groupRef = useRef();
     // Point all the mirrors towards the center.
@@ -26,8 +20,8 @@ export default function Room() {
             {[...Array(room.numMirrors)].map((v, i) => 
                 <mesh 
                     key={i}
-                    position-x={RADIUS * Math.cos(i * angleIncrement)}
-                    position-z={RADIUS * Math.sin(i * angleIncrement)}
+                    position-x={room.radius * Math.cos(i * angleIncrement)}
+                    position-z={room.radius * Math.sin(i * angleIncrement)}
                 >
                     <planeGeometry args={[room.mirrorWidth, room.mirrorHeight]}/>
                     <MeshReflectorMaterial 

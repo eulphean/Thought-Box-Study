@@ -11,7 +11,7 @@ import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js'
 export const MODEL_TYPE = {
   WALK: 'walk',
   SIT: 'sit',
-  LAUGH: 'laught',
+  LAUGH: 'laugh',
   SQUAT: 'squat'
 }
 
