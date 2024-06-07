@@ -1,4 +1,4 @@
-import { MeshReflectorMaterial } from "@react-three/drei"
+import { MeshReflectorMaterial, MeshTransmissionMaterial } from "@react-three/drei"
 import { useLayoutEffect, useRef } from "react";
 import * as THREE from 'three'
 import useGui from "./Gui.jsx";
@@ -12,6 +12,18 @@ export default function Room() {
         });
     }, []);
 
+    const getMat = () => {
+        return (
+            <MeshReflectorMaterial 
+                resolution={512}
+                blur={[1000, 1000]}
+                mixBlur={0.5}
+                mirror={0.8}
+                color={'lightPink'}
+            />
+        )
+    }
+
     // GUI
     const [room] = useGui();
     const angleIncrement = Math.PI * 2 / room.numMirrors;
@@ -24,35 +36,19 @@ export default function Room() {
                     position-z={room.radius * Math.sin(i * angleIncrement)}
                 >
                     <planeGeometry args={[room.mirrorWidth, room.mirrorHeight]}/>
-                    <MeshReflectorMaterial 
-                        resolution={512}
-                        blur={[100, 100]}
-                        mixBlur={0.5}
-                        mirror={0.8}
-                        color={'lightBlue'}
-                    />
+                    {getMat()}
                 </mesh>
             )}
         </group>
 
         <mesh rotation-x={-Math.PI/2} position-y={-room.mirrorHeight/2}>
             <circleGeometry args={[room.radius * 1.1, 16]} />
-            <MeshReflectorMaterial 
-                resolution={512}
-                mirror={0.25}
-                color={'lightBlue'}
-            />
+            {getMat()}
         </mesh>
 
         <mesh rotation-x={Math.PI/2} position-y={room.mirrorHeight/2}>
             <circleGeometry args={[room.radius * 1.1, 16]} />
-            <MeshReflectorMaterial 
-                resolution={512}
-                blur={[100, 100]}
-                mixBlur={0.5}
-                mirror={0.5}
-                color={'lightBlue'}
-            />
+            {getMat()}
         </mesh>
     </>
 }

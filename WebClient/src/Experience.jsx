@@ -1,8 +1,6 @@
-import { OrbitControls, TransformControls } from '@react-three/drei'
-import { useRef, Suspense} from 'react'
+import { OrbitControls } from '@react-three/drei'
 import Room from './Room';
 import useStore from './Stores/useStore';
-
 const Experience = () =>
 {
     const instances = useStore((state) => state.instances);
@@ -14,6 +12,7 @@ const Experience = () =>
 
         <Room />
         {instances}
+
     </>
 }
 

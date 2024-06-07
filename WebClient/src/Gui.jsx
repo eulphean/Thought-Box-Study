@@ -5,9 +5,9 @@ import { MODEL_TYPE } from './Model/Model';
 export default function useGui() {
     const room = useControls('Room', {
         numMirrors: { value: 32, min: 16, max: 50, step: 1},
-        radius: {value: 40, min:20, max: 100, step: 1},
+        radius: {value: 60, min:20, max: 100, step: 1},
         mirrorHeight: {value: 25, min: 20, max: 150, step: 1},
-        mirrorWidth: {value: 8, min: 5, max:50, step: 1}
+        mirrorWidth: {value: 12, min: 5, max:50, step: 1}
     });
 
     // Retrieve the state update function from the store.
@@ -21,7 +21,8 @@ export default function useGui() {
         },
         create: button(() => { 
             addInstance()
-        })
+        }),
+        controls: false
     });
 
     return [room, thoughtBox];
