@@ -9,6 +9,7 @@ import useStore from "../Stores/useStore";
 // Create the right kind of based based on the model. 
 export default function ThoughtBox(props) {
     const [room, thoughtBox] = useGui();
+    const transformMode = useStore((state) => state.transformMode);
     const getGeometry = () => {
         if (props.modelType === MODEL_TYPE.SIT) {
             return (
@@ -49,7 +50,7 @@ export default function ThoughtBox(props) {
             
             </Suspense>
         </group>
-        {thoughtBox.controls ? <TransformControls object={tbRef} visible mode="translate" /> : <></>}
+        {thoughtBox.controls ? <TransformControls object={tbRef} visible mode={transformMode} /> : <></>}
      
     </>
 }

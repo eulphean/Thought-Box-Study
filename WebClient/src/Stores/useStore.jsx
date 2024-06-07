@@ -6,7 +6,9 @@ const useStore = create((set) => {
     return {
         instances: [],
         modelType: 'sit',
+        transformMode: 'translate',
         updateModelType: (newModelType) => set(() => ({modelType: newModelType})),
+        updateTransformMode: (newMode) => set(() => ({transformMode: newMode})),
         addInstance: () => {
             set((state) => {
                 const k = state.instances.length;

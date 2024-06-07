@@ -11,15 +11,16 @@ root.render(
         shadows
         camera={ {
             fov: 45,
-            near: 0.1,
+            near: 0.01,
             far: 200,
-            position: [ - 4, 3, 50 ]
+            position: [ 0, 1, 0.1 ]
         } }
     >   
         <Stage 
             preset={'soft'}
             shadows={'false'}
             intensity={0.1}
+            adjustCamera={true}
         >
             <group position-y={5.5}>
                 <Experience />

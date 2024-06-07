@@ -1,4 +1,4 @@
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, PresentationControls} from '@react-three/drei'
 import Room from './Room';
 import useStore from './Stores/useStore';
 const Experience = () =>
@@ -12,7 +12,6 @@ const Experience = () =>
 
         <Room />
         {instances}
-
     </>
 }
 
